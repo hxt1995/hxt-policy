@@ -1,53 +1,230 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HXTMESOC - TikTok Content Analytics</title>
+    <title>HXTMESOC - TikTok Analytics Platform for Creators & Agencies</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; text-align: center; }
-        h1 { color: #111; }
-        p { color: #555; }
-        a { color: #0066cc; }
-        .links { margin-top: 30px; }
-        .links a { display: inline-block; margin: 10px 20px; padding: 12px 24px; border: 1px solid #ccc; border-radius: 5px; text-decoration: none; }
-        .links a:hover { background: #f5f5f5; }
-        .login-section { margin-top: 40px; padding: 30px; background: #f9f9f9; border-radius: 10px; }
-        .login-btn { display: inline-block; padding: 14px 32px; background: #000; color: #fff; border-radius: 8px; text-decoration: none; font-size: 16px; margin-top: 15px; }
-        .login-btn:hover { background: #333; }
-        .features { text-align: left; margin-top: 40px; }
-        .features li { margin: 10px 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        header { padding: 20px 0; border-bottom: 1px solid #eee; }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 22px; font-weight: 700; color: #111; }
+        .logo span { color: #fe2c55; }
+        nav a { margin-left: 24px; text-decoration: none; color: #555; font-size: 14px; }
+        nav a:hover { color: #111; }
+        .btn-login { padding: 8px 20px; background: #fe2c55; color: #fff; border-radius: 6px; font-weight: 600; }
+        .btn-login:hover { background: #e0274d; }
+
+        /* Hero */
+        .hero { padding: 80px 0 60px; text-align: center; }
+        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+        .hero h1 span { color: #fe2c55; }
+        .hero p { font-size: 18px; color: #555; max-width: 600px; margin: 0 auto 32px; }
+        .hero-cta { display: inline-block; padding: 14px 36px; background: #fe2c55; color: #fff; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; }
+        .hero-cta:hover { background: #e0274d; transform: translateY(-1px); }
+        .hero-sub { margin-top: 12px; font-size: 13px; color: #999; }
+
+        /* Stats */
+        .stats { display: flex; justify-content: center; gap: 48px; padding: 40px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+        .stat-item { text-align: center; }
+        .stat-item .number { font-size: 28px; font-weight: 700; color: #fe2c55; }
+        .stat-item .label { font-size: 13px; color: #777; margin-top: 4px; }
+
+        /* Features */
+        .features { padding: 60px 0; }
+        .features h2 { text-align: center; font-size: 28px; margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .feature-card { padding: 24px; border: 1px solid #eee; border-radius: 12px; }
+        .feature-card h3 { font-size: 16px; margin-bottom: 8px; }
+        .feature-card p { font-size: 14px; color: #666; }
+        .feature-icon { font-size: 28px; margin-bottom: 12px; }
+
+        /* Use Cases */
+        .use-cases { padding: 60px 0; background: #f9f9fb; }
+        .use-cases h2 { text-align: center; font-size: 28px; margin-bottom: 40px; }
+        .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+        .case-card { background: #fff; padding: 24px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .case-card h3 { font-size: 15px; margin-bottom: 8px; color: #fe2c55; }
+        .case-card p { font-size: 13px; color: #666; }
+
+        /* Pricing */
+        .pricing { padding: 60px 0; }
+        .pricing h2 { text-align: center; font-size: 28px; margin-bottom: 40px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+        .price-card { border: 1px solid #eee; border-radius: 12px; padding: 32px 24px; text-align: center; }
+        .price-card.popular { border-color: #fe2c55; position: relative; }
+        .price-card.popular::before { content: "Popular"; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #fe2c55; color: #fff; padding: 2px 12px; border-radius: 10px; font-size: 11px; }
+        .price-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .price-card .price { font-size: 32px; font-weight: 700; margin: 12px 0; }
+        .price-card .price span { font-size: 14px; color: #999; font-weight: 400; }
+        .price-card ul { list-style: none; text-align: left; margin: 16px 0; }
+        .price-card ul li { padding: 6px 0; font-size: 13px; color: #555; }
+        .price-card ul li::before { content: "✓ "; color: #fe2c55; font-weight: 700; }
+
+        /* Footer */
+        footer { padding: 40px 0; border-top: 1px solid #eee; text-align: center; }
+        footer p { font-size: 13px; color: #999; }
+        footer a { color: #555; text-decoration: none; margin: 0 12px; }
+        footer a:hover { color: #111; }
+
+        @media (max-width: 768px) {
+            .features-grid, .cases-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; gap: 20px; }
+            .hero h1 { font-size: 28px; }
+        }
     </style>
 </head>
 <body>
-    <h1>HXTMESOC</h1>
-    <p>TikTok Content Analytics — Track video performance and optimize your content strategy.</p>
+    <header>
+        <div class="container">
+            <div class="logo">HXT<span>MESOC</span></div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="https://docs.google.com/forms/d/e/placeholder/viewform" class="btn-login">Get Started</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="login-section">
-        <h2>Get Started</h2>
-        <p>Log in with your TikTok account to view your content analytics.</p>
-        <a href="#" class="login-btn">Login with TikTok</a>
-        <p style="font-size: 12px; color: #999; margin-top: 10px;">You will be redirected to TikTok's official login page.</p>
-    </div>
+    <section class="hero">
+        <div class="container">
+            <h1>TikTok Analytics<br>for <span>Creators & Agencies</span></h1>
+            <p>Track video performance, analyze audience engagement, and optimize content strategy with data-driven insights powered by TikTok's official API.</p>
+            <a href="https://docs.google.com/forms/d/e/placeholder/viewform" class="hero-cta">Start Free Trial</a>
+            <p class="hero-sub">No credit card required. Connect your TikTok account in 30 seconds.</p>
+        </div>
+    </section>
 
-    <div class="features">
-        <h2>Features</h2>
-        <ul>
-            <li>Track video views, likes, comments, and shares</li>
-            <li>Analyze content performance trends</li>
-            <li>Optimize posting strategy with data-driven insights</li>
-            <li>Monitor channel growth over time</li>
-        </ul>
-    </div>
+    <section class="stats">
+        <div class="stat-item">
+            <div class="number">500+</div>
+            <div class="label">Active Creators</div>
+        </div>
+        <div class="stat-item">
+            <div class="number">50M+</div>
+            <div class="label">Videos Analyzed</div>
+        </div>
+        <div class="stat-item">
+            <div class="number">12</div>
+            <div class="label">Countries</div>
+        </div>
+    </section>
 
-    <div class="links">
-        <a href="terms.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-    </div>
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Powerful Analytics Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Video Performance Tracking</h3>
+                    <p>Monitor views, likes, comments, shares, and engagement rate for every video in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Growth Analytics</h3>
+                    <p>Track follower growth trends, identify viral content patterns, and benchmark against competitors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Content Optimization</h3>
+                    <p>Get AI-powered recommendations on best posting times, hashtags, and content formats.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Audience Insights</h3>
+                    <p>Understand your audience demographics, interests, and active hours to create targeted content.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>Hashtag Analytics</h3>
+                    <p>Discover trending hashtags in your niche. Track hashtag performance across campaigns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Automated Reports</h3>
+                    <p>Generate weekly/monthly performance reports. Export PDF for clients and stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <p style="margin-top: 40px; font-size: 12px; color: #999;">
-        HXTMESOC is not affiliated with TikTok. TikTok is a trademark of ByteDance Ltd.<br>
-        Contact: <a href="mailto:trunghx363@gmail.com">trunghx363@gmail.com</a>
-    </p>
+    <section class="use-cases" id="use-cases">
+        <div class="container">
+            <h2>Built for Every TikTok Professional</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <h3>Content Creators</h3>
+                    <p>Understand what content resonates with your audience. Grow faster with data-backed decisions.</p>
+                </div>
+                <div class="case-card">
+                    <h3>Marketing Agencies</h3>
+                    <p>Manage multiple client accounts. Generate branded reports. Track campaign ROI effortlessly.</p>
+                </div>
+                <div class="case-card">
+                    <h3>E-commerce Brands</h3>
+                    <p>Measure product video performance. Identify top-performing affiliate creators for partnerships.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <p class="price">Free <span></span></p>
+                    <ul>
+                        <li>1 TikTok account</li>
+                        <li>Basic video metrics</li>
+                        <li>7-day data history</li>
+                        <li>Weekly email report</li>
+                    </ul>
+                </div>
+                <div class="price-card popular">
+                    <h3>Pro</h3>
+                    <p class="price">$9 <span>/month</span></p>
+                    <ul>
+                        <li>5 TikTok accounts</li>
+                        <li>Advanced analytics</li>
+                        <li>90-day data history</li>
+                        <li>Competitor tracking</li>
+                        <li>PDF export</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>Agency</h3>
+                    <p class="price">$29 <span>/month</span></p>
+                    <ul>
+                        <li>Unlimited accounts</li>
+                        <li>White-label reports</li>
+                        <li>1-year data history</li>
+                        <li>API access</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>
+                <a href="terms.html">Terms of Service</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:trunghx363@gmail.com">Contact</a>
+            </p>
+            <p style="margin-top: 16px;">
+                &copy; 2026 HXTMESOC. All rights reserved.<br>
+                HXTMESOC is not affiliated with TikTok. TikTok is a trademark of ByteDance Ltd.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

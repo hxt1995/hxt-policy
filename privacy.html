@@ -1,100 +1,108 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - HXTMESOC</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-        h1 { color: #111; }
-        h2 { color: #444; margin-top: 30px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 24px; line-height: 1.7; color: #333; }
+        h1 { color: #111; font-size: 28px; }
+        h2 { color: #333; margin-top: 32px; font-size: 18px; }
+        a { color: #fe2c55; }
+        .back { display: inline-block; margin-bottom: 20px; color: #555; text-decoration: none; font-size: 14px; }
+        .back:hover { color: #111; }
     </style>
 </head>
 <body>
+    <a href="index.html" class="back">&larr; Back to HXTMESOC</a>
     <h1>Privacy Policy</h1>
-    <p><strong>Last updated:</strong> April 27, 2026</p>
+    <p><strong>Last updated:</strong> May 4, 2026</p>
 
     <h2>1. Introduction</h2>
-    <p>HXTMESOC ("we", "our", "the App") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our TikTok content analytics application.</p>
+    <p>HXTMESOC ("we", "our", "the Platform") is a SaaS analytics platform that helps content creators, marketing agencies, and e-commerce brands analyze TikTok content performance. This Privacy Policy explains how we handle user data.</p>
 
     <h2>2. Information We Collect</h2>
-    <p>When you log in with your TikTok account, we access the following information through TikTok's official API:</p>
+    <p>When users connect their TikTok accounts through TikTok's official Login Kit, we access:</p>
     <ul>
-        <li><strong>Profile Information:</strong> Your TikTok username, display name, profile picture, bio, follower count, and following count</li>
-        <li><strong>Video Data:</strong> Your public video list including video titles, descriptions, view counts, like counts, comment counts, share counts, and posting dates</li>
-        <li><strong>Analytics Data:</strong> Aggregated performance metrics derived from the above data</li>
+        <li><strong>Profile Information:</strong> Username, display name, avatar, bio, follower/following counts</li>
+        <li><strong>Video Metadata:</strong> Public video list including titles, view counts, likes, comments, shares, posting dates</li>
+        <li><strong>Performance Metrics:</strong> Aggregated analytics derived from video data</li>
+        <li><strong>Account Email:</strong> For subscription management and report delivery</li>
     </ul>
     <p>We do <strong>NOT</strong> collect:</p>
     <ul>
-        <li>Your TikTok password</li>
-        <li>Your private or draft videos</li>
-        <li>Your direct messages</li>
-        <li>Your payment or financial information</li>
-        <li>Data from other users who have not authorized the App</li>
+        <li>TikTok passwords (authentication via OAuth 2.0 only)</li>
+        <li>Private or draft videos</li>
+        <li>Direct messages</li>
+        <li>Payment information from TikTok</li>
+        <li>Data from non-authorized accounts</li>
     </ul>
 
     <h2>3. How We Use Information</h2>
-    <p>Data accessed through TikTok's API is used solely for:</p>
+    <p>Data is used to provide our analytics services:</p>
     <ul>
-        <li>Displaying your content performance analytics</li>
-        <li>Generating insights about your video performance trends</li>
-        <li>Helping you optimize your content posting strategy</li>
+        <li>Generate performance dashboards and trend reports</li>
+        <li>Provide content optimization recommendations</li>
+        <li>Enable competitor benchmarking (public data only)</li>
+        <li>Deliver scheduled reports via email (Pro/Agency plans)</li>
+        <li>Improve our analytics algorithms with aggregated, anonymized data</li>
     </ul>
-    <p>We do <strong>NOT</strong> sell, share, rent, or distribute any of your data to third parties.</p>
+    <p>We do <strong>NOT</strong> sell individual user data to third parties.</p>
 
     <h2>4. Data Storage and Retention</h2>
-    <p>We do <strong>NOT</strong> permanently store your TikTok data on our servers. All data is:</p>
     <ul>
-        <li>Fetched in real-time from TikTok's API when you use the App</li>
-        <li>Processed temporarily in memory for analytics calculations</li>
-        <li>Not retained after your session ends</li>
+        <li><strong>Free tier:</strong> Data fetched in real-time, 7-day aggregated metrics cached</li>
+        <li><strong>Pro tier:</strong> 90-day historical analytics stored</li>
+        <li><strong>Agency tier:</strong> 1-year historical analytics stored</li>
     </ul>
+    <p>All stored data is aggregated performance metrics, not raw personal data. Data is deleted within 30 days of account closure.</p>
 
     <h2>5. Data Security</h2>
-    <p>We implement reasonable security measures to protect your data during processing:</p>
     <ul>
-        <li>All API communications use HTTPS/TLS encryption</li>
-        <li>Authentication tokens are stored securely and never exposed</li>
-        <li>We follow TikTok's API security best practices</li>
+        <li>All communications encrypted via HTTPS/TLS</li>
+        <li>OAuth tokens stored encrypted at rest</li>
+        <li>Access controls limit data visibility to authorized account users</li>
+        <li>Regular security audits and compliance reviews</li>
     </ul>
 
     <h2>6. TikTok Login and Authorization</h2>
-    <p>HXTMESOC uses TikTok's official Login Kit for authentication. When you log in:</p>
+    <p>HXTMESOC uses TikTok's official Login Kit (OAuth 2.0). Users are redirected to TikTok's login page. We receive an access token, never the password. Users can revoke access in TikTok Settings → Security → Manage app permissions.</p>
+
+    <h2>7. Multi-Account & Agency Use</h2>
+    <p>Agency users may connect multiple TikTok accounts with proper authorization from each account owner. Each connected account must independently authorize access through TikTok's OAuth flow.</p>
+
+    <h2>8. Third-Party Services</h2>
+    <p>We integrate with:</p>
     <ul>
-        <li>You are redirected to TikTok's official login page</li>
-        <li>You authorize specific permissions for our App</li>
-        <li>TikTok sends us an access token (not your password)</li>
-        <li>You can revoke access anytime in TikTok Settings → Security → "Manage app permissions"</li>
+        <li>TikTok's official API (content data)</li>
+        <li>Email service provider (report delivery)</li>
+        <li>Payment processor (subscription billing — Pro/Agency only)</li>
     </ul>
 
-    <h2>7. Third-Party Services</h2>
-    <p>This App integrates exclusively with TikTok's official API. Your use of TikTok is governed by <a href="https://www.tiktok.com/legal/terms-of-service">TikTok's Terms of Service</a> and <a href="https://www.tiktok.com/legal/privacy-policy">TikTok's Privacy Policy</a>.</p>
+    <h2>9. Children's Privacy</h2>
+    <p>Our Platform is not directed to children under 13. We do not knowingly collect data from minors.</p>
 
-    <h2>8. Children's Privacy</h2>
-    <p>Our App is not directed to children under 13 (or the applicable age in your jurisdiction). We do not knowingly collect data from children. If you believe a child has provided us with data, please contact us immediately.</p>
-
-    <h2>9. Your Rights</h2>
-    <p>You have the right to:</p>
+    <h2>10. User Rights</h2>
     <ul>
-        <li><strong>Access:</strong> View what data we access from your TikTok account</li>
-        <li><strong>Revoke:</strong> Remove our App's access to your TikTok data at any time through TikTok's settings</li>
-        <li><strong>Delete:</strong> Request deletion of any temporarily cached data by contacting us</li>
-        <li><strong>Opt-out:</strong> Stop using the App at any time</li>
+        <li><strong>Access:</strong> View all data we hold about your account in your dashboard</li>
+        <li><strong>Export:</strong> Download your analytics data in CSV/PDF format</li>
+        <li><strong>Revoke:</strong> Disconnect TikTok accounts at any time</li>
+        <li><strong>Delete:</strong> Request full account and data deletion</li>
     </ul>
 
-    <h2>10. Data Deletion</h2>
-    <p>Since we do not permanently store your data, there is nothing to delete. However, if you want to ensure complete disconnection:</p>
+    <h2>11. Data Deletion</h2>
+    <p>To delete your data:</p>
     <ol>
-        <li>Go to TikTok → Settings → Security → Manage app permissions</li>
-        <li>Find HXTMESOC and revoke access</li>
-        <li>Contact us at <a href="mailto:trunghx363@gmail.com">trunghx363@gmail.com</a> to confirm deletion</li>
+        <li>Log in to HXTMESOC and go to Settings → Delete Account</li>
+        <li>Revoke access in TikTok → Settings → Security → Manage app permissions</li>
+        <li>All data will be permanently deleted within 30 days</li>
     </ol>
+    <p>Or contact: <a href="mailto:trunghx363@gmail.com">trunghx363@gmail.com</a></p>
 
-    <h2>11. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this page periodically.</p>
+    <h2>12. Changes to This Policy</h2>
+    <p>We notify users of material changes via email 14 days before they take effect.</p>
 
-    <h2>12. Contact Us</h2>
-    <p>If you have questions or concerns about this Privacy Policy, contact us at:</p>
-    <p>Email: <a href="mailto:trunghx363@gmail.com">trunghx363@gmail.com</a></p>
+    <h2>13. Contact</h2>
+    <p>Questions about privacy: <a href="mailto:trunghx363@gmail.com">trunghx363@gmail.com</a></p>
 </body>
 </html>
