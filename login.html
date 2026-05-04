@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HXTMESOC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f5f5f7; }
+        .login-box { background: #fff; padding: 48px 40px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; max-width: 400px; width: 100%; }
+        .logo { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .logo span { color: #fe2c55; }
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 32px; }
+        .btn { display: block; width: 100%; padding: 14px 24px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; margin-bottom: 12px; border: none; cursor: pointer; transition: transform 0.1s; }
+        .btn:hover { transform: translateY(-1px); }
+        .btn-tiktok { background: #000; color: #fff; }
+        .btn-tiktok:hover { background: #1a1a1a; }
+        .btn-facebook { background: #1877F2; color: #fff; }
+        .btn-facebook:hover { background: #166fe5; }
+        .btn-icon { vertical-align: middle; margin-right: 8px; }
+        .divider { display: flex; align-items: center; margin: 20px 0; color: #ccc; font-size: 12px; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid #eee; }
+        .divider span { padding: 0 12px; }
+        .footer-text { margin-top: 24px; font-size: 12px; color: #999; }
+        .footer-text a { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo">HXT<span>MESOC</span></div>
+        <p class="subtitle">TikTok Analytics for Creators & Agencies</p>
+
+        <a href="#" id="btn-tiktok" class="btn btn-tiktok" onclick="loginTikTok()">
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.88 2.89 2.89 0 0 1-2.88-2.88 2.89 2.89 0 0 1 2.88-2.88c.28 0 .55.04.81.11v-3.5a6.37 6.37 0 0 0-.81-.05A6.34 6.34 0 0 0 3.15 15.7 6.34 6.34 0 0 0 9.49 22a6.34 6.34 0 0 0 6.34-6.34V9.17a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.01-.6z"/></svg>
+            Continue with TikTok
+        </a>
+
+        <div class="divider"><span>or</span></div>
+
+        <a href="#" id="btn-facebook" class="btn btn-facebook" onclick="loginFacebook()">
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Continue with Facebook
+        </a>
+
+        <p class="footer-text">
+            By continuing, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.
+        </p>
+    </div>
+
+    <script>
+        // TikTok OAuth config
+        const TIKTOK_CLIENT_KEY = 'awp5r6k59ak17np5';
+        const TIKTOK_REDIRECT_URI = 'https://hxt1995.github.io/hxt-policy/callback.html';
+        const TIKTOK_SCOPES = 'user.info.basic,video.list';
+
+        // Facebook OAuth config
+        const FB_APP_ID = '2061874411025103';
+        const FB_REDIRECT_URI = 'https://hxt1995.github.io/hxt-policy/callback.html';
+        const FB_SCOPES = 'public_profile,email';
+
+        function generateState() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+
+        function loginTikTok() {
+            const state = generateState();
+            sessionStorage.setItem('oauth_state', state);
+            sessionStorage.setItem('oauth_provider', 'tiktok');
+
+            const url = 'https://www.tiktok.com/v2/auth/authorize/' +
+                '?client_key=' + TIKTOK_CLIENT_KEY +
+                '&scope=' + encodeURIComponent(TIKTOK_SCOPES) +
+                '&response_type=code' +
+                '&redirect_uri=' + encodeURIComponent(TIKTOK_REDIRECT_URI) +
+                '&state=' + state;
+
+            window.location.href = url;
+        }
+
+        function loginFacebook() {
+            const state = generateState();
+            sessionStorage.setItem('oauth_state', state);
+            sessionStorage.setItem('oauth_provider', 'facebook');
+
+            const url = 'https://www.facebook.com/v19.0/dialog/oauth' +
+                '?client_id=' + FB_APP_ID +
+                '&redirect_uri=' + encodeURIComponent(FB_REDIRECT_URI) +
+                '&scope=' + encodeURIComponent(FB_SCOPES) +
+                '&response_type=code' +
+                '&state=' + state;
+
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

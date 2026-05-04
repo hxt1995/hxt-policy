@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization - HXTMESOC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f5f5f7; }
+        .card { background: #fff; padding: 48px 40px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center; max-width: 440px; width: 100%; }
+        .logo { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+        .logo span { color: #fe2c55; }
+        .status-icon { font-size: 48px; margin-bottom: 16px; }
+        .status-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .status-desc { font-size: 14px; color: #666; margin-bottom: 24px; line-height: 1.5; }
+        .info-box { background: #f9f9fb; border-radius: 8px; padding: 16px; margin-bottom: 24px; text-align: left; font-size: 13px; color: #555; }
+        .info-box .label { font-weight: 600; color: #333; }
+        .btn-dashboard { display: inline-block; padding: 12px 32px; background: #fe2c55; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+        .btn-dashboard:hover { background: #e0274d; }
+        .error .status-icon { color: #e74c3c; }
+        .success .status-icon { color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="card" id="card">
+        <div class="logo">HXT<span>MESOC</span></div>
+        <div id="loading">
+            <div class="status-icon">⏳</div>
+            <div class="status-title">Processing authorization...</div>
+            <div class="status-desc">Please wait while we connect your account.</div>
+        </div>
+        <div id="success" style="display:none;">
+            <div class="status-icon">✅</div>
+            <div class="status-title">Successfully Connected!</div>
+            <div class="status-desc">Your account has been linked to HXTMESOC. You can now access your analytics dashboard.</div>
+            <div class="info-box" id="info-box"></div>
+            <a href="index.html" class="btn-dashboard">Go to Dashboard</a>
+        </div>
+        <div id="error" style="display:none;">
+            <div class="status-icon">❌</div>
+            <div class="status-title">Authorization Failed</div>
+            <div class="status-desc" id="error-msg">Something went wrong. Please try again.</div>
+            <a href="login.html" class="btn-dashboard" style="background:#555;">Try Again</a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            const state = params.get('state');
+            const error = params.get('error');
+            const errorDescription = params.get('error_description') || params.get('error_reason');
+            const provider = sessionStorage.getItem('oauth_provider') || 'tiktok';
+            const savedState = sessionStorage.getItem('oauth_state');
+
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+
+                if (error || errorDescription) {
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error-msg').textContent =
+                        errorDescription || error || 'Authorization was denied or failed.';
+                    document.getElementById('card').classList.add('error');
+                    return;
+                }
+
+                if (!code) {
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error-msg').textContent =
+                        'No authorization code received. Please try logging in again.';
+                    document.getElementById('card').classList.add('error');
+                    return;
+                }
+
+                // State verification
+                if (savedState && state && savedState !== state) {
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error-msg').textContent =
+                        'Security verification failed (state mismatch). Please try again.';
+                    document.getElementById('card').classList.add('error');
+                    return;
+                }
+
+                // Success
+                document.getElementById('success').style.display = 'block';
+                document.getElementById('card').classList.add('success');
+                document.getElementById('info-box').innerHTML =
+                    '<p><span class="label">Provider:</span> ' + (provider === 'facebook' ? 'Facebook' : 'TikTok') + '</p>' +
+                    '<p style="margin-top:8px"><span class="label">Status:</span> Connected</p>' +
+                    '<p style="margin-top:8px"><span class="label">Auth Code:</span> ' + code.substring(0, 12) + '...</p>';
+
+                // Clean up
+                sessionStorage.removeItem('oauth_state');
+                sessionStorage.removeItem('oauth_provider');
+
+            }, 1500);
+        })();
+    </script>
+</body>
+</html>
