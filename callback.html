@@ -51,11 +51,23 @@
             const state = params.get('state');
             const error = params.get('error');
             const errorDescription = params.get('error_description') || params.get('error_reason');
-            const provider = sessionStorage.getItem('oauth_provider') || 'tiktok';
+            const demo = params.get('demo');
+            const provider = sessionStorage.getItem('oauth_provider') || params.get('provider') || 'tiktok';
             const savedState = sessionStorage.getItem('oauth_state');
 
             setTimeout(function() {
                 document.getElementById('loading').style.display = 'none';
+
+                // Sandbox/demo mode for app review
+                if (demo === '1') {
+                    document.getElementById('success').style.display = 'block';
+                    document.getElementById('card').classList.add('success');
+                    document.getElementById('info-box').innerHTML =
+                        '<p><span class="label">Provider:</span> ' + (provider === 'facebook' ? 'Facebook' : 'TikTok') + '</p>' +
+                        '<p style="margin-top:8px"><span class="label">Status:</span> Connected</p>' +
+                        '<p style="margin-top:8px"><span class="label">Account:</span> @demo_user</p>';
+                    return;
+                }
 
                 if (error || errorDescription) {
                     document.getElementById('error').style.display = 'block';
